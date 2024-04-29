@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Buku</title>
+    <style>
+        /* Tambahkan gaya sesuai kebutuhan */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .store-info {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    </h1>Toko Buku</h1>
+    <div id="store-info" class="store-info">
+        <!-- Informasi toko buku akan ditampilkan di sini -->
+    </div>
+
+    <table id="book-collection">
+        <thead>
+            <tr>
+                <th>Judul Buku</th>
+                <th>Pengarang</th>
+                <th>Genre</th>
+                <th>Tahun Terbit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Koleksi buku akan ditampilkan di sini -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fungsi untuk menampilkan data toko buku
+        function displayBookstore(data) {
+            const storeInfoDiv = document.getElementById('store-info');
+            const bookCollectionTable = document.getElementById('book-collection').querySelector('tbody');
+
+            // Menampilkan informasi toko buku
+            const storeInfoHTML = `
+                <p><strong>Nama Toko:</strong> ${data.nama_toko}</p>
+                <p><strong>Pengarang:</strong> ${data.pengarang}</p>
+                <p><strong>Alamat:</strong> ${data.alamat}</p>
+            `;
+            storeInfoDiv.innerHTML = storeInfoHTML;
+
+            // Menampilkan koleksi buku dalam bentuk tabel
+            let bookCollectionHTML = '';
+            data.koleksi_buku.forEach(book => {
+                bookCollectionHTML += `
+                    <tr>
+                        <td>${book.judul}</td>
+                        <td>${book.pengarang}</td>
+                        <td>${book.genre}</td>
+                        <td>${book.tahun_terbit}</td>
+                    </tr>
+                `;
+            });
+            bookCollectionTable.innerHTML = bookCollectionHTML;
+        }
+
+        // Fungsi AJAX untuk mengambil data JSON dari file
+        function fetchBookstoreData() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'path/to/your/toko_buku.json', true);
+            
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const data = JSON.parse(xhr.responseText);
+                    displayBookstore(data);
+                }
+            };
+
+            xhr.send();
+        }
+
+        // Memanggil fungsi untuk mengambil data JSON saat halaman dimuat
+        window.onload = function() {
+            fetchBookstoreData();
+        };
+    </script>
+</body>
+
+</html>
+
+    <meta name="viewport" content="width=device"
